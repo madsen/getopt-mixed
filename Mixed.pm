@@ -5,7 +5,7 @@ package Getopt::Mixed;
 #
 # Author: Christopher J. Madsen <ac608@yfn.ysu.edu>
 # Created: 1 Jan 1995
-# Version: $Revision: 1.5 $ ($Date: 1995/12/12 17:29:28 $)
+# Version: $Revision: 1.6 $ ($Date: 1996/01/27 18:31:20 $)
 #    Note that RCS revision 1.23 => $Getopt::Mixed::VERSION = "1.023"
 #
 # This program is free software; you can redistribute it and/or modify
@@ -50,7 +50,7 @@ BEGIN
     $typeChars   = 'sif';                      # Match type characters
 
     # Convert RCS revision number (must be main branch) to d.ddd format:
-    ' $Revision: 1.5 $ ' =~ / (\d+)\.(\d{1,3}) /
+    ' $Revision: 1.6 $ ' =~ / (\d+)\.(\d{1,3}) /
         or die "Invalid version number";
     $VERSION = sprintf("%d.%03d",$1,$2);
 } # end BEGIN
@@ -150,6 +150,10 @@ sub abortMsg
 # Input:
 #   Index into @ARGV
 #   The option that caused the error
+#   An optional string describing the problem
+#     Currently, this can be
+#       undef        The option was not recognized
+#       'ambiguous'  The option could match several long options
 #
 # Note:
 #   The option has already been removed from @ARGV.  To put it back,
@@ -161,7 +165,11 @@ sub abortMsg
 
 sub badOption
 {
-    abortMsg("unrecognized option `$ARG[1]'");
+    my ($index, $option, $problem) = @ARG;
+
+    $problem = 'unrecognized' unless $problem;
+
+    abortMsg("$problem option `$option'");
 } # end badOption
 
 #---------------------------------------------------------------------
@@ -206,6 +214,40 @@ sub checkArg
 
     $value;
 } # end checkArg
+
+#---------------------------------------------------------------------
+# Find a match for an incomplete long option:
+#
+# Input:
+#   The option text to match
+#
+# Returns:
+#   The option that matched, or
+#   undef, if no option matched, or
+#   (undef, 'ambiguous'), if multiple options matched
+
+sub findMatch
+{
+    my $opt = shift;
+
+    $opt =~ s/-/[^-]*-/g;
+    $opt .= ".*";
+
+    my @matches = grep(/^$opt$/, keys %options);
+
+    return undef       if $#matches <  0;
+    return $matches[0] if $#matches == 0;
+
+    $opt = $matches[0];
+    $opt = $options{$opt} if $options{$opt} =~ /^[^=:]/;
+
+    foreach (@matches) {
+        return (undef, 'ambiguous')
+            unless $ARG eq $opt or $options{$ARG} eq $opt;
+    }
+
+    $opt;
+} # end findMatch
 
 #---------------------------------------------------------------------
 # Return the next option:
@@ -254,10 +296,12 @@ sub nextOption
             $value = $POSTMATCH;
         } # end if option is followed by value
         $opt =~ tr/A-Z/a-z/ if $ignoreCase;
-        return &$badOption($i,$option)
-            unless defined $options{$opt} and length($opt) > 1;
-        $optType = $options{$opt};
         $prettyOpt = substr($option,0,2) . $opt;
+        my $problem;
+        ($opt, $problem) = findMatch($opt)
+            unless defined $options{$opt} and length($opt) > 1;
+        return &$badOption($i,$option,$problem) unless $opt;
+        $optType = $options{$opt};
         if ($optType =~ /^[^:=]/) {
             $opt = $optType;
             $optType = $options{$opt};
@@ -420,6 +464,12 @@ double dash by itself marks the end of the options; all arguments
 following it are treated as normal arguments, not options.  A single
 dash by itself is treated as a normal argument, I<not> an option.
 
+Long options may be abbreviated.  An option B<--all-the-time> could be
+abbreviated B<--all>, B<--a--tim>, or even B<--a>.  Note that B<--time>
+would not work; the abbreviation must start at the beginning of the
+option name.  If an abbreviation is ambiguous, an error message will
+be printed.
+
 In the following examples, B<-i> and B<--int> take integer arguments,
 B<-f> and B<--float> take floating point arguments, and B<-s> and
 B<--string> take string arguments.  All other options do not take an
@@ -524,13 +574,13 @@ I<before> calling nextOption.
 If you set any of these variables, you I<must> check the version
 number first.  The easiest way to do this is like this:
 
-    use Getopt::Mixed 1.004;
+    use Getopt::Mixed 1.006;
 
 If you are using the simple method, and you want to set these
 variables, you'll need to call init before calling getOptions, like
 this:
 
-    use Getopt::Mixed 1.004;
+    use Getopt::Mixed 1.006;
     Getopt::Mixed::init(...option-descriptions...);
     ...set configuration variables...
     Getopt::Mixed::getOptions();      # IMPORTANT: no parameters
@@ -567,10 +617,13 @@ A string of characters that can start options.  Default is "-".
 =item $badOption
 
 A reference to a function that is called when an unrecognized option
-is encountered.  The function receives two arguments.  $_[0] is the
+is encountered.  The function receives three arguments.  $_[0] is the
 position in @ARGV where the option came from.  $_[1] is the option as
-the user typed it (including the option start character). The option
-has already been removed from @ARGV.  To put it back, you can say:
+the user typed it (including the option start character).  $_[2] is
+either undef or a string describing the reason the option was not
+recognized (Currently, the only possible value is 'ambiguous', for a
+long option with several possible matches).  The option has already
+been removed from @ARGV.  To put it back, you can say:
 
     splice(@ARGV,$_[0],0,$_[1]);
 
@@ -644,11 +697,6 @@ This document should be expanded.
 =item *
 
 A long option must be at least two characters long.  Sorry.
-
-=item *
-
-Long options cannot be abbreviated (by the user), although you (the
-author) can provide a shorter synonym (or synonyms).
 
 =item *
 
