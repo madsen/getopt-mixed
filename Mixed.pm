@@ -5,7 +5,7 @@ package Getopt::Mixed;
 #
 # Author: Christopher J. Madsen <ac608@yfn.ysu.edu>
 # Created: 1 Jan 1995
-# Version: $Revision: 1.6 $ ($Date: 1996/01/27 18:31:20 $)
+# Version: $Revision: 1.7 $ ($Date: 1996/02/02 05:36:06 $)
 #    Note that RCS revision 1.23 => $Getopt::Mixed::VERSION = "1.023"
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,7 +27,6 @@ package Getopt::Mixed;
 
 require 5.000;
 use Carp;
-use English;
 
 require Exporter;
 @ISA = qw(Exporter);
@@ -50,7 +49,7 @@ BEGIN
     $typeChars   = 'sif';                      # Match type characters
 
     # Convert RCS revision number (must be main branch) to d.ddd format:
-    ' $Revision: 1.6 $ ' =~ / (\d+)\.(\d{1,3}) /
+    ' $Revision: 1.7 $ ' =~ / (\d+)\.(\d{1,3}) /
         or die "Invalid version number";
     $VERSION = sprintf("%d.%03d",$1,$2);
 } # end BEGIN
@@ -80,9 +79,9 @@ sub init
 
     # If the first argument is entirely non-alphanumeric characters
     # with no whitespace, it is the desired value for $optionStart:
-    $optionStart = shift @ARG if $ARG[0] =~ /^[^a-z0-9\s]+$/i;
+    $optionStart = shift @_ if $_[0] =~ /^[^a-z0-9\s]+$/i;
 
-    foreach $group (@ARG) {
+    foreach $group (@_) {
         # Ignore case unless there are upper-case options:
         $ignoreCase = 0 if $group =~ /[A-Z]/;
         foreach $option (split(/\s+/,$group)) {
@@ -90,8 +89,8 @@ sub init
                 unless $option =~ /^([^=:>]+)([=:][$typeChars]|>[^=:>]+)?$/o;
             $opt  = $1;
             $type = $2 || "";
-            if ($type =~ /^>/) {
-                $type = $POSTMATCH;
+            if ($type =~ /^>(.*)$/) {
+                $type = $1;
                 croak "Invalid synonym `$option'"
                     if (not defined $options{$type}
                         or $options{$type} =~ /^[^:=]/);
@@ -115,11 +114,16 @@ sub init
 #---------------------------------------------------------------------
 # Clean up when we're done:
 #
-# This just releases the memory used by the %options hash
+# This just releases the memory used by the %options hash.
+#
+# If 'help' was defined as an option, a new hash with just 'help' is
+# created, in case the program calls abortMsg.
 
 sub cleanup
 {
+    my $help = defined($options{'help'});
     undef %options;
+    $options{'help'} = "" if $help;
 } # end cleanup
 
 #---------------------------------------------------------------------
@@ -133,7 +137,7 @@ sub abortMsg
 {
     my $name = $0;
     $name =~ s|^.+[\\/]||;      # Remove any directories from name
-    print STDERR $name,": ",@ARG,"\n";
+    print STDERR $name,": ",@_,"\n";
     print STDERR "Try `$name --help' for more information.\n"
         if defined $options{"help"};
     exit 1;
@@ -165,7 +169,7 @@ sub abortMsg
 
 sub badOption
 {
-    my ($index, $option, $problem) = @ARG;
+    my ($index, $option, $problem) = @_;
 
     $problem = 'unrecognized' unless $problem;
 
@@ -186,7 +190,7 @@ sub badOption
 
 sub checkArg
 {
-    my ($i,$value,$option,$type) = @ARG;
+    my ($i,$value,$option,$type) = @_;
 
     abortMsg("option `$option' does not take an argument")
         if (not $type and defined $value);
@@ -243,7 +247,7 @@ sub findMatch
 
     foreach (@matches) {
         return (undef, 'ambiguous')
-            unless $ARG eq $opt or $options{$ARG} eq $opt;
+            unless $_ eq $opt or $options{$_} eq $opt;
     }
 
     $opt;
@@ -291,9 +295,9 @@ sub nextOption
             return nextOption();
         } # end if bare double dash
         $opt = substr($option,2);
-        if ($opt =~ /^([^=]+)=/) {
+        if ($opt =~ /^([^=]+)=(.*)$/) {
             $opt = $1;
-            $value = $POSTMATCH;
+            $value = $2;
         } # end if option is followed by value
         $opt =~ tr/A-Z/a-z/ if $ignoreCase;
         $prettyOpt = substr($option,0,2) . $opt;
@@ -327,7 +331,7 @@ sub nextOption
         }
         if ($optType) {
             $value = (length($option) > 2) ? substr($option,2) : undef;
-            $value = $POSTMATCH if $value and $value =~ /^=/;
+            $value =~ s/^=// if $value; # Allow either -d3 or -d=3
         } # end if option takes an argument
         $prettyOpt = substr($option,0,2);
         $value = &$checkArg($i,$value,$prettyOpt,$optType);
@@ -352,7 +356,7 @@ sub nextOption
 
 sub getOptions
 {
-    &init if $#ARG >= 0;        # Pass arguments (if any) on to init
+    &init if $#_ >= 0;        # Pass arguments (if any) on to init
 
     # If you want to use $RETURN_IN_ORDER, you have to call
     # nextOption yourself; getOptions doesn't support it:
@@ -377,6 +381,7 @@ sub getOptions
 $VERSION;
 
 __END__
+
 =head1 NAME
 
 Getopt::Mixed - getopt processing with both long and short options
@@ -733,5 +738,9 @@ provide source code).
 =head1 AUTHOR
 
 Christopher J. Madsen <F<ac608@yfn.ysu.edu>>
+
+Thanks are also due to Andreas Koenig for helping Getopt::Mixed
+conform to the standards for Perl modules and for answering a bunch of
+questions.  Any remaining deficiencies are my fault.
 
 =cut
