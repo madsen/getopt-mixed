@@ -5,7 +5,8 @@ package Getopt::Mixed;
 #
 # Author: Christopher J. Madsen <ac608@yfn.ysu.edu>
 # Created: 1 Jan 1995
-# Version: $Revision: 1.2 $ ($Date: 1995/01/05 02:16:17 $)
+# Version: $Revision: 1.3 $ ($Date: 1995/12/08 02:30:00 $)
+#    Note that RCS revision 1.23 => $Getopt::Mixed::VERSION = "1.023"
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -47,18 +48,15 @@ BEGIN
     $intRegexp   = '^[-+]?\d+$';               # Match an integer
     $floatRegexp = '^[-+]?(\d*\.?\d+|\d+\.)$'; # Match a real number
     $typeChars   = 'sif';                      # Match type characters
+
+    # Convert RCS revision number (must be main branch) to d.ddd format:
+    ' $Revision: 1.3 $ ' =~ / (\d+)\.(\d{1,3}) /
+        or die "Invalid version number";
+    $VERSION = sprintf("%d.%03d",$1,$2);
 } # end BEGIN
 
 #=====================================================================
 # Subroutines:
-#---------------------------------------------------------------------
-# Return RCS version number:
-
-sub version {
-    '$Revision: 1.2 $ ' =~ /[\d.]+/;
-    $MATCH;
-} # end version
-
 #---------------------------------------------------------------------
 # Initialize the option processor:
 #
@@ -280,6 +278,10 @@ sub nextOption
         $opt =~ tr/A-Z/a-z/ if $ignoreCase;
         return &$badOption($i,$option) unless defined $options{$opt};
         $optType = $options{$opt};
+        if ($optType =~ /^[^:=]/) {
+            $opt = $optType;
+            $optType = $options{$opt};
+        }
         if (length($option) == 2 or $optType) {
             # This is the last option in the group, so remove the group:
             splice(@ARGV,$i,1);
@@ -288,7 +290,7 @@ sub nextOption
             substr($ARGV[$i],1,1) = "";
         }
         if ($optType) {
-            $value = substr($option,2) || undef;
+            $value = (length($option) > 2) ? substr($option,2) : undef;
             $value = $POSTMATCH if $value and $value =~ /^=/;
         } # end if option takes an argument
         $prettyOpt = substr($option,0,2);
