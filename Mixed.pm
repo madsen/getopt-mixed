@@ -5,7 +5,7 @@ package Getopt::Mixed;
 #
 # Author: Christopher J. Madsen <ac608@yfn.ysu.edu>
 # Created: 1 Jan 1995
-# Version: $Revision: 1.4 $ ($Date: 1995/12/08 03:32:53 $)
+# Version: $Revision: 1.5 $ ($Date: 1995/12/12 17:29:28 $)
 #    Note that RCS revision 1.23 => $Getopt::Mixed::VERSION = "1.023"
 #
 # This program is free software; you can redistribute it and/or modify
@@ -50,7 +50,7 @@ BEGIN
     $typeChars   = 'sif';                      # Match type characters
 
     # Convert RCS revision number (must be main branch) to d.ddd format:
-    ' $Revision: 1.4 $ ' =~ / (\d+)\.(\d{1,3}) /
+    ' $Revision: 1.5 $ ' =~ / (\d+)\.(\d{1,3}) /
         or die "Invalid version number";
     $VERSION = sprintf("%d.%03d",$1,$2);
 } # end BEGIN
@@ -131,8 +131,10 @@ sub cleanup
 
 sub abortMsg
 {
-    print STDERR $0,": ",@ARG,"\n";
-    print STDERR "Try `$0 --help' for more information.\n"
+    my $name = $0;
+    $name =~ s|^.+[\\/]||;      # Remove any directories from name
+    print STDERR $name,": ",@ARG,"\n";
+    print STDERR "Try `$name --help' for more information.\n"
         if defined $options{"help"};
     exit 1;
 } # end abortMsg
@@ -500,6 +502,19 @@ value.  The value will be undefined if the option does not take an
 argument.  The option is stripped of its starter (e.g., you get "a"
 and "foo", not "-a" or "--foo").
 
+=head1 OTHER FUNCTIONS
+
+Getopt::Mixed provides one other function you can use.  C<abortMsg>
+prints its arguments on STDERR, plus your program's name and a
+newline.  It then exits with status 1.  For example, if F<foo.pl>
+calls C<abortMsg> like this:
+
+  Getopt::Mixed::abortMsg("Error");
+
+The output will be:
+
+  foo.pl: Error
+
 =head1 CUSTOMIZATION
 
 There are several customization variables you can set.  All of these
@@ -650,6 +665,25 @@ and do it yourself.
 
 =back
 
+=head1 LICENSE
+
+Getopt::Mixed is distributed under the terms of the GNU General Public
+License as published by the Free Software Foundation; either version
+2, or (at your option) any later version.
+
+This means it is distributed in the hope that it will be useful, but
+I<without any warranty>; without even the implied warranty of
+I<merchantability> or I<fitness for a particular purpose>.  See the
+GNU General Public License for more details.
+
+Since Perl scripts are only compiled at runtime, and simply calling
+Getopt::Mixed does I<not> bring your program under the GPL, the only
+real restriction is that you can't use Getopt::Mixed in an
+binary-only distribution produced with C<dump> (unless you also
+provide source code).
+
 =head1 AUTHOR
 
 Christopher J. Madsen <F<ac608@yfn.ysu.edu>>
+
+=cut
