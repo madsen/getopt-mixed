@@ -5,8 +5,7 @@ package Getopt::Mixed;
 #
 # Author: Christopher J. Madsen <ac608@yfn.ysu.edu>
 # Created: 1 Jan 1995
-# Version: $Revision: 1.8 $ ($Date: 1996/02/09 00:05:00 $)
-#    Note that RCS revision 1.23 => $Getopt::Mixed::VERSION = "1.023"
+# Version: $Revision: 1.9 $ ($Date: 1996/07/22 06:58:37 $)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -49,7 +48,7 @@ BEGIN
     $typeChars   = 'sif';                      # Match type characters
 
     # Convert RCS revision number (must be main branch) to d.ddd format:
-    ' $Revision: 1.8 $ ' =~ / (\d+)\.(\d{1,3}) /
+    ' $Revision: 1.9 $ ' =~ / (\d+)\.(\d{1,3}) /
         or die "Invalid version number";
     $VERSION = sprintf("%d.%03d",$1,$2);
 } # end BEGIN
@@ -375,7 +374,9 @@ sub getOptions
     while (($option, $value) = nextOption()) {
         $option =~ s/\W/_/g;    # Make a legal Perl identifier
         $value = 1 unless defined $value;
-        eval("\$" . $package . '::opt_' . $option . ' = $value;');
+        my $code = "\$" . $package . "::opt_$option = \$value;";
+        $code =~ /(.+)/;        # Untaint it
+        eval $1;
     } # end while
 
     cleanup();
