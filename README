@@ -1,10 +1,13 @@
-Getopt::Mixed 1.006
+Getopt::Mixed 1.008
 Copyright 1995 Christopher J. Madsen
 
 This module provides GNU-style option processing for Perl 5 scripts,
 with both long and short options.  Please see the documentation at the
 end of the module for instructions on its use and licensing
 restrictions.
+
+You can use Makefile.PL to install Getopt::Mixed, but all you really
+need to do is copy lib/Getopt/Mixed.pm to your Perl library.
 
 tstopt1 and tstopt2 are sample scripts using Getopt::Mixed.  They
 accept the following options and associated arguments:

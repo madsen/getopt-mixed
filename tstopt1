@@ -1,4 +1,7 @@
 #!perl
+# $Id: tstopt1 1.1 1996/02/08 23:02:48 Madsen Exp $
+
+BEGIN {unshift @INC, 'lib'} # So you don't have to install Getopt::Mixed first
 
 use Getopt::Mixed 1.006, 'getOptions';
 
