@@ -1,0 +1,14 @@
+Revision history for Perl extension Getopt::Mixed.
+
+1.010  Aug 07 2002
+        - Fix for running with taint checks turned on
+        - Getopt::Mixed is now obsolete
+
+1.008  Feb 08 1996
+        - Performance enhancements and assorted fixes
+
+1.006  Jan 27 1996
+        - Allows long options to be abbreviated
+
+1.005  Jan 18 1996
+	- First public release
