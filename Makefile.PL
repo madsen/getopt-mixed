@@ -1,6 +1,6 @@
 #!perl
 #---------------------------------------------------------------------
-# $Id: Makefile.PL,v 1.3 1996/02/08 20:10:51 Madsen Exp $
+# $Id: Makefile.PL,v 1.4 2005/01/15 17:11:11 Madsen Exp $
 # Copyright 1996 Christopher J. Madsen
 #
 # Makefile.PL for Getopt::Mixed
@@ -16,6 +16,6 @@ WriteMakefile(
     VERSION  => $Getopt::Mixed::VERSION,
     dist     => {COMPRESS => 'gzip -9f', SUFFIX => 'gz',
 # This next line is just for my own use, you can comment it out if you want:
-                PREOP => 'toix $(DISTVNAME)' # Converts CRLF to LF
+                PREOP => 'cjm_fixup $(DISTVNAME)' # Converts CRLF to LF
                 },
 );
