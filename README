@@ -1,4 +1,4 @@
-Getopt::Mixed 1.005
+Getopt::Mixed 1.006
 Copyright 1995 Christopher J. Madsen
 
 This module provides GNU-style option processing for Perl 5 scripts,
@@ -9,6 +9,7 @@ restrictions.
 tstopt1 and tstopt2 are sample scripts using Getopt::Mixed.  They
 accept the following options and associated arguments:
   -a, --apples=N     Mandatory real number argument
+      --apricots=N   Mandatory real number argument
   -b[N]              Optional integer argument
   -c                 No arguments
   -d[STRING]         Optional string argument

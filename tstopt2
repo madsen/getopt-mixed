@@ -1,9 +1,9 @@
 #!perl
 
-use Getopt::Mixed 1.005, 'nextOption';
+use Getopt::Mixed 1.006, 'nextOption';
 
-Getopt::Mixed::init("apples=f a>apples b:i c d:s file=s f>file pears=f",
-                    "help ?>help version V>version");
+Getopt::Mixed::init("apples=f a>apples apricots=f b:i c d:s file=s f>file",
+                    "pears=f help ?>help version V>version");
 
 while (($option, $value, $asEntered) = nextOption()) {
     if (defined $value) {

@@ -1,17 +1,18 @@
 #!perl
 
-use Getopt::Mixed 1.005, 'getOptions';
+use Getopt::Mixed 1.006, 'getOptions';
 
-getOptions("apples=f a>apples b:i c d:s file=s f>file pears=f",
+getOptions("apples=f a>apples apricots=f b:i c d:s file=s f>file pears=f",
            "help ?>help version V>version");
 
-print '$opt_apples = ',$opt_apples,"\n"  if defined $opt_apples;
-print '$opt_b = ',$opt_b,"\n"            if defined $opt_b;
-print "\$opt_c\n"                        if $opt_c;
-print '$opt_d = ',$opt_d,"\n"            if defined $opt_d;
-print '$opt_file = ',$opt_file,"\n"      if defined $opt_file;
-print '$opt_pears = ',$opt_pears,"\n"    if defined $opt_pears;
-print "\$opt_help\n"                     if $opt_help;
-print "\$opt_version\n"                  if $opt_version;
+print '$opt_apples = ',$opt_apples,"\n"      if defined $opt_apples;
+print '$opt_apricots = ',$opt_apricots,"\n"  if defined $opt_apricots;
+print '$opt_b = ',$opt_b,"\n"                if defined $opt_b;
+print "\$opt_c\n"                            if $opt_c;
+print '$opt_d = ',$opt_d,"\n"                if defined $opt_d;
+print '$opt_file = ',$opt_file,"\n"          if defined $opt_file;
+print '$opt_pears = ',$opt_pears,"\n"        if defined $opt_pears;
+print "\$opt_help\n"                         if $opt_help;
+print "\$opt_version\n"                      if $opt_version;
 
 print "ARGV = ",join(' ',@ARGV),"\n";
