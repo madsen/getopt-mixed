@@ -3,9 +3,9 @@ package Getopt::Mixed;
 #
 # Copyright 1995 Christopher J. Madsen
 #
-# Author: Christopher J. Madsen <ac608@yfn.ysu.edu>
+# Author: Christopher J. Madsen <cjm@pobox.com>
 # Created: 1 Jan 1995
-# Version: $Revision: 1.9 $ ($Date: 1996/07/22 06:58:37 $)
+# Version: $Revision: 1.10 $ ($Date: 2005/01/15 17:30:10 $)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ BEGIN
     $typeChars   = 'sif';                      # Match type characters
 
     # Convert RCS revision number (must be main branch) to d.ddd format:
-    ' $Revision: 1.9 $ ' =~ / (\d+)\.(\d{1,3}) /
+    ' $Revision: 1.10 $ ' =~ / (\d+)\.(\d{1,3}) /
         or die "Invalid version number";
     $VERSION = sprintf("%d.%03d",$1,$2);
 } # end BEGIN
@@ -410,12 +410,23 @@ or
 
 =head1 DESCRIPTION
 
-This package is my response to the standard modules Getopt::Std and
+This package was my response to the standard modules Getopt::Std and
 Getopt::Long.  C<Std> doesn't support long options, and C<Long>
-doesn't support short options.  I wanted both, since long options are
+didn't support short options.  I wanted both, since long options are
 easier to remember and short options are faster to type.
 
-This package is intended to be the "Getopt-to-end-all-Getop's".  It
+However, some time ago Getopt::Long was changed to support short
+options as well, and it has the huge advantage of being part of the
+standard Perl distribution.  So, Getopt::Mixed is now effectively
+obsolete.  I don't intend to make any more changes, but I'm leaving it
+available for people who have code that already uses it.  For new
+modules, I recommend using Getopt::Long like this:
+
+    use Getopt::Long;
+    Getopt::Long::Configure(qw(bundling no_getopt_compat));
+    GetOptions(...option-descriptions...);
+
+This package was intended to be the "Getopt-to-end-all-Getop's".  It
 combines (I hope) flexibility and simplicity.  It supports both short
 options (introduced by C<->) and long options (introduced by C<-->).
 Short options which do not take an argument can be grouped together.
@@ -746,7 +757,7 @@ provide source code).
 
 =head1 AUTHOR
 
-Christopher J. Madsen E<lt>F<ac608@yfn.ysu.edu>E<gt>
+Christopher J. Madsen E<lt>F<cjm@pobox.com>E<gt>
 
 Thanks are also due to Andreas Koenig for helping Getopt::Mixed
 conform to the standards for Perl modules and for answering a bunch of
