@@ -5,7 +5,7 @@ package Getopt::Mixed;
 #
 # Author: Christopher J. Madsen <ac608@yfn.ysu.edu>
 # Created: 1 Jan 1995
-# Version: $Revision: 1.7 $ ($Date: 1996/02/02 05:36:06 $)
+# Version: $Revision: 1.8 $ ($Date: 1996/02/09 00:05:00 $)
 #    Note that RCS revision 1.23 => $Getopt::Mixed::VERSION = "1.023"
 #
 # This program is free software; you can redistribute it and/or modify
@@ -49,7 +49,7 @@ BEGIN
     $typeChars   = 'sif';                      # Match type characters
 
     # Convert RCS revision number (must be main branch) to d.ddd format:
-    ' $Revision: 1.7 $ ' =~ / (\d+)\.(\d{1,3}) /
+    ' $Revision: 1.8 $ ' =~ / (\d+)\.(\d{1,3}) /
         or die "Invalid version number";
     $VERSION = sprintf("%d.%03d",$1,$2);
 } # end BEGIN
@@ -187,6 +187,9 @@ sub badOption
 #   $value:   The text appended to the option (undef if no text)
 #   $option:  The pretty name of the option (as the user typed it)
 #   $type:    The type of the option
+#
+# Returns:
+#   The value of the option's argument
 
 sub checkArg
 {
@@ -256,7 +259,10 @@ sub findMatch
 #---------------------------------------------------------------------
 # Return the next option:
 #
-# Returns a list of 3 elements:  (OPTION, VALUE, PRETTYNAME)
+# Returns a list of 3 elements:  (OPTION, VALUE, PRETTYNAME), where
+#   OPTION is the name of the option,
+#   VALUE is its argument, and
+#   PRETTYNAME is the option as the user entered it.
 # Returns the null list if there are no more options to process
 #
 # If $order is $RETURN_IN_ORDER, and this is a normal argument (not an
@@ -536,7 +542,7 @@ The flexible method is
 
     use Getopt::Mixed "nextOption";
     Getopt::Mixed::init(...option-descriptions...);
-    while (($option, $value) = nextOption()) {
+    while (($option, $value, $pretty) = nextOption()) {
         ...process option...
     }
     Getopt::Mixed::cleanup();
@@ -552,10 +558,12 @@ Then, you keep calling nextOption until it returns an empty list.
 Finally, you call Getopt::Mixed::cleanup when you're done.  The
 remaining (non-option) arguments will be found in @ARGV.
 
-Each call to nextOption returns a list of the next option and its
-value.  The value will be undefined if the option does not take an
-argument.  The option is stripped of its starter (e.g., you get "a"
-and "foo", not "-a" or "--foo").
+Each call to nextOption returns a list of the next option, its value,
+and the option as the user typed it.  The value will be undefined if
+the option does not take an argument.  The option is stripped of its
+starter (e.g., you get "a" and "foo", not "-a" or "--foo").  If you
+want to print an error message, use the third element, which does
+include the option starter.
 
 =head1 OTHER FUNCTIONS
 
@@ -737,7 +745,7 @@ provide source code).
 
 =head1 AUTHOR
 
-Christopher J. Madsen <F<ac608@yfn.ysu.edu>>
+Christopher J. Madsen E<lt>F<ac608@yfn.ysu.edu>E<gt>
 
 Thanks are also due to Andreas Koenig for helping Getopt::Mixed
 conform to the standards for Perl modules and for answering a bunch of
