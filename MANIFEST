@@ -1,0 +1,6 @@
+MANIFEST			Please see MANIFEST
+Makefile.PL			MakeMaker Makefile
+README				Overview of Getopt::Mixed & the sample scripts
+lib/Getopt/Mixed.pm		This file is the only one you really need
+tstopt1				Sample script demonstrating the simple method
+tstopt2				Sample script demonstrating the flexible method

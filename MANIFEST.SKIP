@@ -1,0 +1,9 @@
+\bRCS\b
+~$
+\$$
+^blib/
+\.gz$
+^MANIFEST\.
+^Makefile$
+^announce.txt$
+^cjm_
