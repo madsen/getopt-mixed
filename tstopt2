@@ -1,0 +1,18 @@
+#!perl
+
+use Getopt::Mixed 1.005, 'nextOption';
+
+Getopt::Mixed::init("apples=f a>apples b:i c d:s file=s f>file pears=f",
+                    "help ?>help version V>version");
+
+while (($option, $value, $asEntered) = nextOption()) {
+    if (defined $value) {
+        printf "%-9s %7s = %s\n",$asEntered,$option,$value;
+    } else {
+        printf "%-9s %7s\n",$asEntered,$option;
+    }
+}
+
+Getopt::Mixed::cleanup();
+
+print "ARGV = ",join(' ',@ARGV),"\n";
