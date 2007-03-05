@@ -3,9 +3,9 @@ package Getopt::Mixed;
 #
 # Copyright 1995 Christopher J. Madsen
 #
-# Author: Christopher J. Madsen <cjm@pobox.com>
+# Author: Christopher J. Madsen <perl@cjmweb.net>
 # Created: 1 Jan 1995
-# Version: $Revision: 1.10 $ ($Date: 2005/01/15 17:30:10 $)
+# $Id$
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,6 +37,8 @@ require Exporter;
 
 BEGIN
 {
+    $VERSION = '1.09';
+
     # The permissible settings for $order:
     $REQUIRE_ORDER   = 0;
     $PERMUTE         = 1;
@@ -46,11 +48,6 @@ BEGIN
     $intRegexp   = '^[-+]?\d+$';               # Match an integer
     $floatRegexp = '^[-+]?(\d*\.?\d+|\d+\.)$'; # Match a real number
     $typeChars   = 'sif';                      # Match type characters
-
-    # Convert RCS revision number (must be main branch) to d.ddd format:
-    ' $Revision: 1.10 $ ' =~ / (\d+)\.(\d{1,3}) /
-        or die "Invalid version number";
-    $VERSION = sprintf("%d.%03d",$1,$2);
 } # end BEGIN
 
 #=====================================================================
@@ -410,6 +407,8 @@ or
 
 =head1 DESCRIPTION
 
+This module is obsolete.
+
 This package was my response to the standard modules Getopt::Std and
 Getopt::Long.  C<Std> doesn't support long options, and C<Long>
 didn't support short options.  I wanted both, since long options are
@@ -757,7 +756,7 @@ provide source code).
 
 =head1 AUTHOR
 
-Christopher J. Madsen E<lt>F<cjm@pobox.com>E<gt>
+Christopher J. Madsen E<lt>F<perl@cjmweb.net>E<gt>
 
 Thanks are also due to Andreas Koenig for helping Getopt::Mixed
 conform to the standards for Perl modules and for answering a bunch of
