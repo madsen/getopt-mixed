@@ -1,8 +1,10 @@
-$$Id: README,v 1.2 2005/01/15 17:13:09 Madsen Exp $
+$$Id$
 Getopt::Mixed $%v%$
 Copyright 1995 Christopher J. Madsen
 
-This module provides GNU-style option processing for Perl 5 scripts,
+This module is obsolete.
+
+Getopt::Mixed provides GNU-style option processing for Perl 5 scripts,
 with both long and short options.  Please see the documentation at the
 end of the module for instructions on its use and licensing
 restrictions.

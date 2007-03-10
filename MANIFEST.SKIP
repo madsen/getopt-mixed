@@ -7,3 +7,8 @@
 ^Makefile$
 ^announce.txt$
 ^cjm_
+^pm_to_blib$
+^Getopt-
+^_build\b
+^Build$
+.svn\b
