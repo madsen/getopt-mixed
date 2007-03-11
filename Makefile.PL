@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 #---------------------------------------------------------------------
-# $Id: Makefile.PL,v 1.4 2005/01/15 17:11:11 Madsen Exp $
+# $Id$
 # Copyright 2007 Christopher J. Madsen
 #
 # Makefile.PL for Getopt::Mixed

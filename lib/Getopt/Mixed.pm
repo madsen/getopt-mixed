@@ -8,18 +8,12 @@ package Getopt::Mixed;
 # $Id$
 #
 # This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2, or (at your option)
-# any later version.
+# it under the same terms as Perl itself.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Perl; see the file COPYING.  If not, write to the
-# Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See either the
+# GNU General Public License or the Artistic License for more details.
 #
 # Process both single-character and extended options
 #---------------------------------------------------------------------
@@ -739,20 +733,12 @@ and do it yourself.
 
 =head1 LICENSE
 
-Getopt::Mixed is distributed under the terms of the GNU General Public
-License as published by the Free Software Foundation; either version
-2, or (at your option) any later version.
+Getopt::Mixed is distributed under the same terms as Perl itself.
 
 This means it is distributed in the hope that it will be useful, but
 I<without any warranty>; without even the implied warranty of
 I<merchantability> or I<fitness for a particular purpose>.  See the
-GNU General Public License for more details.
-
-Since Perl scripts are only compiled at runtime, and simply calling
-Getopt::Mixed does I<not> bring your program under the GPL, the only
-real restriction is that you can't use Getopt::Mixed in an
-binary-only distribution produced with C<dump> (unless you also
-provide source code).
+GNU General Public License or the Artistic License for more details.
 
 =head1 AUTHOR
 

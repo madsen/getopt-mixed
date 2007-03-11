@@ -4,6 +4,7 @@ Revision history for Perl extension Getopt::Mixed.
         - Fix for running with taint checks turned on
         - Getopt::Mixed is now obsolete
         - updated my email address
+        - now released under Perl's license terms
 
 1.008  Feb 08 1996
         - Performance enhancements and assorted fixes
