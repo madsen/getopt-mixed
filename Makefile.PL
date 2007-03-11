@@ -1,12 +1,20 @@
 #! /usr/bin/perl
 #---------------------------------------------------------------------
 # $Id: Makefile.PL,v 1.4 2005/01/15 17:11:11 Madsen Exp $
-# Copyright 1996 Christopher J. Madsen
+# Copyright 2007 Christopher J. Madsen
 #
 # Makefile.PL for Getopt::Mixed
 #---------------------------------------------------------------------
 
 use ExtUtils::MakeMaker;
+
+my @PREOP;
+
+my $fixup = ($^O =~ /Win32/ ? 'cjm_fixup.bat' : './cjm_fixup.sh');
+
+if (-e $fixup) {
+  @PREOP = (PREOP => "$fixup \$(DISTVNAME)");
+}
 
 WriteMakefile(
     NAME                => 'Getopt::Mixed',
@@ -18,7 +26,5 @@ WriteMakefile(
         'Test::More' => 0,
     },
     dist     => {COMPRESS => 'gzip -9f', SUFFIX => 'gz',
-# This next line is just for my own use, you can comment it out if you want:
-                PREOP => 'cjm_fixup $(DISTVNAME)' # Converts CRLF to LF
-                },
+                 @PREOP },
 );
