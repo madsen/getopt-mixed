@@ -1,9 +1,11 @@
 Changes				History of changes
+examples/flexible		Sample script demonstrating the flexible method
+examples/simple			Sample script demonstrating the simple method
 lib/Getopt/Mixed.pm		This file is the only one you really need
 Makefile.PL			MakeMaker Makefile
 MANIFEST			Please see MANIFEST
 README				Overview of Getopt::Mixed & the sample scripts
 t/00.load.t			Testing 1 ... 2 ... 3 ...
 t/10.getopt.t			Testing 1 ... 2 ... 3 ...
-tstopt1				Sample script demonstrating the simple method
-tstopt2				Sample script demonstrating the flexible method
+t/pod-coverage.t                Check documentation for full coverage
+t/pod.t				Check documentation for errors

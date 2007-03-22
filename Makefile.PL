@@ -21,6 +21,7 @@ WriteMakefile(
     AUTHOR              => 'Christopher J. Madsen <perl@cjmweb.net>',
     VERSION_FROM        => 'lib/Getopt/Mixed.pm',
     ABSTRACT_FROM       => 'lib/Getopt/Mixed.pm',
+    LICENSE             => 'perl',
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,

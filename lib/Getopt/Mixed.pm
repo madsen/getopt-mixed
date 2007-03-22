@@ -19,7 +19,15 @@ package Getopt::Mixed;
 #---------------------------------------------------------------------
 
 require 5.000;
+use strict;
 use Carp;
+
+use vars qw(
+    @EXPORT @EXPORT_OK @ISA %options
+    $PERMUTE $REQUIRE_ORDER $RETURN_IN_ORDER $VERSION
+    $badOption $checkArg $checkType $floatRegexp $group $ignoreCase
+    $intRegexp $option $optionEnd $optionStart $order $typeChars
+);
 
 require Exporter;
 @ISA = qw(Exporter);
@@ -31,7 +39,7 @@ require Exporter;
 
 BEGIN
 {
-    $VERSION = '1.09';
+    $VERSION = '1.10';
 
     # The permissible settings for $order:
     $REQUIRE_ORDER   = 0;
@@ -742,7 +750,11 @@ GNU General Public License or the Artistic License for more details.
 
 =head1 AUTHOR
 
-Christopher J. Madsen E<lt>F<perl@cjmweb.net>E<gt>
+Christopher J. Madsen E<lt>F<perl AT cjmweb.net>E<gt>
+
+Please send bug reports to F<bug-Getopt-Mixed AT rt.cpan.org>, or
+use the web interface at
+L<http://rt.cpan.org/Public/Bug/Report.html?Queue=Getopt-Mixed>
 
 Thanks are also due to Andreas Koenig for helping Getopt::Mixed
 conform to the standards for Perl modules and for answering a bunch of

@@ -1,9 +1,21 @@
-#!perl
-# $Id: tstopt1 1.1 1996/02/08 23:02:48 Madsen Exp $
+#! /usr/bin/perl
+#---------------------------------------------------------------------
+# $Id$
+#
+# Demonstrate the flexible method of using Getopt::Mixed
+#---------------------------------------------------------------------
 
-BEGIN {unshift @INC, 'lib'} # So you don't have to install Getopt::Mixed first
+# This next line is only so you don't have to install Getopt::Mixed first:
+BEGIN {unshift @INC, '../lib'}  # Don't do this in your code
 
+#---------------------------------------------------------------------
+use strict;
 use Getopt::Mixed 1.006, 'getOptions';
+
+use vars qw(
+  $opt_apples $opt_apricots $opt_b $opt_c $opt_d $opt_file
+  $opt_pears $opt_help $opt_version
+);
 
 getOptions("apples=f a>apples apricots=f b:i c d:s file=s f>file pears=f",
            "help ?>help version V>version");

@@ -23,8 +23,8 @@ modules, I recommend using Getopt::Long like this:
 You can use Makefile.PL to install Getopt::Mixed, but all you really
 need to do is copy lib/Getopt/Mixed.pm to your Perl library.
 
-tstopt1 and tstopt2 are sample scripts using Getopt::Mixed.  They
-accept the following options and associated arguments:
+There are two sample scripts in the examples/ directory.
+They accept the following options and associated arguments:
   -a, --apples=N     Mandatory real number argument
       --apricots=N   Mandatory real number argument
   -b[N]              Optional integer argument
@@ -36,5 +36,5 @@ accept the following options and associated arguments:
   -V, --version      No arguments
 
 Since these are just sample scripts, the options don't actually mean
-anything.  tstopt1 demonstrates the simple method of using
-Getopt::Mixed, and tstopt2 demonstrates the flexible method.
+anything.  simple demonstrates the simple method of using
+Getopt::Mixed, and flexible demonstrates the flexible method.
