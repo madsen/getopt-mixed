@@ -1,21 +1,25 @@
 Revision history for Perl extension Getopt::Mixed.
 
-1.10   Mar 21 2007
-        - use strict
-        - added pod.t & pod-coverage.t
-        - moved example scripts to examples/ and make them use strict
+1.11   NOT
+	- now built with Dist::Zilla (includes v2 META.json)
+	- repository now publicly available on GitHub
 
-1.09   Mar 10 2007
-        - Fix for running with taint checks turned on
-        - Getopt::Mixed is now obsolete
-        - updated my email address
-        - now released under Perl's license terms
+1.10   March 21, 2007
+	- use strict
+	- added pod.t & pod-coverage.t
+	- moved example scripts to examples/ and make them use strict
 
-1.008  Feb 08 1996
-        - Performance enhancements and assorted fixes
+1.09   March 10, 2007
+	- Fix for running with taint checks turned on
+	- Getopt::Mixed is now obsolete
+	- updated my email address
+	- now released under Perl's license terms
 
-1.006  Jan 27 1996
-        - Allows long options to be abbreviated
+1.008  February 8, 1996
+	- Performance enhancements and assorted fixes
 
-1.005  Jan 18 1996
+1.006  January 27, 1996
+	- Allows long options to be abbreviated
+
+1.005  January 18, 1996
 	- First public release

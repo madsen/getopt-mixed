@@ -1,6 +1,5 @@
-$$Id$
-Getopt::Mixed $%v%$
-Copyright 1995 Christopher J. Madsen
+Getopt::Mixed version {{$version}}, released {{$date}}
+
 
 This module is obsolete.
 
@@ -38,3 +37,31 @@ They accept the following options and associated arguments:
 Since these are just sample scripts, the options don't actually mean
 anything.  simple demonstrates the simple method of using
 Getopt::Mixed, and flexible demonstrates the flexible method.
+
+
+
+INSTALLATION
+
+To install this module, run the following commands:
+
+{{ $t->build_instructions }}
+
+
+
+DEPENDENCIES
+
+{{ $t->dependency_list }}
+
+
+
+CHANGES
+    Here's what's new in version {{$version}} of Getopt-Mixed:
+    (See the file "Changes" for the full revision history.)
+
+{{$changes}}
+
+
+
+COPYRIGHT AND LICENSE
+
+{{ local $_ = $zilla->license->notice; chomp; $_ }}

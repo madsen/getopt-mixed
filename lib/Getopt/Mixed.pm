@@ -5,7 +5,6 @@ package Getopt::Mixed;
 #
 # Author: Christopher J. Madsen <perl@cjmweb.net>
 # Created: 1 Jan 1995
-# $Id$
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
@@ -15,7 +14,7 @@ package Getopt::Mixed;
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See either the
 # GNU General Public License or the Artistic License for more details.
 #
-# Process both single-character and extended options
+# ABSTRACT: getopt processing with both long and short options
 #---------------------------------------------------------------------
 
 require 5.000;
@@ -39,7 +38,7 @@ require Exporter;
 
 BEGIN
 {
-    $VERSION = '1.10';
+    $VERSION = '1.11';
 
     # The permissible settings for $order:
     $REQUIRE_ORDER   = 0;
@@ -388,10 +387,6 @@ $VERSION;
 
 __END__
 
-=head1 NAME
-
-Getopt::Mixed - getopt processing with both long and short options
-
 =head1 SYNOPSIS
 
     use Getopt::Mixed;
@@ -712,7 +707,7 @@ which will check arguments of the new types.
 
 =back
 
-=head1 BUGS
+=head1 BUGS AND LIMITATIONS
 
 =over 4
 
@@ -739,22 +734,17 @@ and do it yourself.
 
 =back
 
-=head1 LICENSE
-
-Getopt::Mixed is distributed under the same terms as Perl itself.
-
-This means it is distributed in the hope that it will be useful, but
-I<without any warranty>; without even the implied warranty of
-I<merchantability> or I<fitness for a particular purpose>.  See the
-GNU General Public License or the Artistic License for more details.
-
 =head1 AUTHOR
 
-Christopher J. Madsen E<lt>F<perl AT cjmweb.net>E<gt>
+Christopher J. Madsen  S<C<< <perl AT cjmweb.net> >>>
 
-Please send bug reports to F<bug-Getopt-Mixed AT rt.cpan.org>, or
-use the web interface at
-L<http://rt.cpan.org/Public/Bug/Report.html?Queue=Getopt-Mixed>
+Please report any bugs or feature requests
+to S<C<< <bug-Getopt-Mixed AT rt.cpan.org> >>>
+or through the web interface at
+L<< http://rt.cpan.org/Public/Bug/Report.html?Queue=Getopt-Mixed >>.
+
+You can follow or contribute to Getopt::Mixed's development at
+L<< http://github.com/madsen/getopt-mixed >>.
 
 Thanks are also due to Andreas Koenig for helping Getopt::Mixed
 conform to the standards for Perl modules and for answering a bunch of
