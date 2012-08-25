@@ -564,7 +564,7 @@ and other arguments were in.
 First, you call Getopt::Mixed::init with the option descriptions.
 Then, you keep calling nextOption until it returns an empty list.
 Finally, you call Getopt::Mixed::cleanup when you're done.  The
-remaining (non-option) arguments will be found in @ARGV.
+remaining (non-option) arguments will be found in C<@ARGV>.
 
 Each call to nextOption returns a list of the next option, its value,
 and the option as the user typed it.  The value will be undefined if
@@ -638,17 +638,17 @@ A string of characters that can start options.  Default is "-".
 =item $badOption
 
 A reference to a function that is called when an unrecognized option
-is encountered.  The function receives three arguments.  $_[0] is the
-position in @ARGV where the option came from.  $_[1] is the option as
-the user typed it (including the option start character).  $_[2] is
+is encountered.  The function receives three arguments.  C<$_[0]> is the
+position in C<@ARGV> where the option came from.  C<$_[1]> is the option as
+the user typed it (including the option start character).  C<$_[2]> is
 either undef or a string describing the reason the option was not
 recognized (Currently, the only possible value is 'ambiguous', for a
 long option with several possible matches).  The option has already
-been removed from @ARGV.  To put it back, you can say:
+been removed from C<@ARGV>.  To put it back, you can say:
 
     splice(@ARGV,$_[0],0,$_[1]);
 
-The function can do anything you want to @ARGV.  It should return
+The function can do anything you want to C<@ARGV>.  It should return
 whatever you want nextOption to return.
 
 The default is a function that prints an error message and exits the
@@ -657,20 +657,20 @@ program.
 =item $checkArg
 
 A reference to a function that is called to make sure the argument
-type is correct.  The function receives four arguments.  $_[0] is the
-position in @ARGV where the option came from.  $_[1] is the text
+type is correct.  The function receives four arguments.  C<$_[0]> is the
+position in C<@ARGV> where the option came from.  C<$_[1]> is the text
 following the option, or undefined if there was no text following the
-option.  $_[2] is the name of the option as the user typed it
+option.  C<$_[2]> is the name of the option as the user typed it
 (including the option start character), suitable for error messages.
-$_[3] is the argument type specifier.
+C<$_[3]> is the argument type specifier.
 
-The function can do anything you want to @ARGV.  It should return
+The function can do anything you want to C<@ARGV>.  It should return
 the value for this option.
 
 The default is a function that prints an error message and exits the
 program if the argument is not the right type for the option.  You can
 also adjust the behavior of the default function by changing
-$intRegexp or $floatRegexp.
+C<$intRegexp> or C<$floatRegexp>.
 
 =item $intRegexp
 
@@ -702,7 +702,7 @@ changed afterwards.
 
 =item $checkType
 
-If you add new types to $typeChars, you should set this to a function
+If you add new types to C<$typeChars>, you should set this to a function
 which will check arguments of the new types.
 
 =back
