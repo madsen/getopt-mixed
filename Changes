@@ -1,5 +1,8 @@
 Revision history for Perl extension Getopt::Mixed.
 
+1.12   NOT
+	- Minor documentation & metadata improvements
+
 1.11   2012-08-25
 	- No functional changes
 	- Minor documentation improvements

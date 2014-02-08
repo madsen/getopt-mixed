@@ -14,7 +14,7 @@ package Getopt::Mixed;
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See either the
 # GNU General Public License or the Artistic License for more details.
 #
-# ABSTRACT: getopt processing with both long and short options
+# ABSTRACT: [OBSOLETE] getopt processing with both long and short options
 #---------------------------------------------------------------------
 
 require 5.000;
@@ -38,7 +38,7 @@ require Exporter;
 
 BEGIN
 {
-    $VERSION = '1.11';
+    $VERSION = '1.12';
 
     # The permissible settings for $order:
     $REQUIRE_ORDER   = 0;
@@ -404,21 +404,21 @@ or
 
 =head1 DESCRIPTION
 
-This module is obsolete.
+B<This module is obsolete.>
 
 This package was my response to the standard modules Getopt::Std and
-Getopt::Long.  C<Std> doesn't support long options, and C<Long>
+Getopt::Long.  Std doesn't support long options, and Long
 didn't support short options.  I wanted both, since long options are
 easier to remember and short options are faster to type.
 
-However, some time ago Getopt::Long was changed to support short
+However, years ago Getopt::Long was changed to support short
 options as well, and it has the huge advantage of being part of the
 standard Perl distribution.  So, Getopt::Mixed is now effectively
 obsolete.  I don't intend to make any more changes, but I'm leaving it
 available for people who have code that already uses it.  For new
 modules, I recommend using Getopt::Long like this:
 
-    use Getopt::Long;
+    use Getopt::Long 2.17; # Released with Perl 5.005
     Getopt::Long::Configure(qw(bundling no_getopt_compat));
     GetOptions(...option-descriptions...);
 
@@ -706,6 +706,10 @@ If you add new types to C<$typeChars>, you should set this to a function
 which will check arguments of the new types.
 
 =back
+
+=head1 SEE ALSO
+
+L<Getopt::Long>
 
 =head1 BUGS AND LIMITATIONS
 
